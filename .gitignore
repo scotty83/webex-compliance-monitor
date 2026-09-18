@@ -1,0 +1,15 @@
+node_modules/
+.superpowers/
+dist/
+data/
+recordings/
+graphify-out/
+design-handoff/
+*.zip
+*.db
+*.db-journal
+.env
+.env.*
+!.env*.example
+.DS_Store
+.nodeterm/

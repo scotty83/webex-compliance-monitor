@@ -1,0 +1,39 @@
+# Example Docker Compose deployment for the Webex Compliance Monitoring System.
+# Copy to docker-compose.yml and replace the placeholders. The app is a single
+# container: backend API + built console SPA + headless-Chromium bot on one port.
+# Bridge networking is fine: WebRTC media is outbound like any browser.
+version: "3"
+
+services:
+  webex-compliance-monitor:
+    build:
+      context: .
+    image: webex-compliance-monitor:latest
+    container_name: webex-compliance-monitor
+    ports:
+      - "4000:4000"
+    env_file:
+      # Secrets and per-deploy settings (APP_SECRET, WEBEX_* credentials, ...).
+      # Start from backend/.env.example. Never commit the real file.
+      - ./.env
+    environment:
+      - TZ=UTC
+      - NODE_ENV=production
+      - PORT=4000
+      - APP_BASE_URL=https://monitor.example.com
+      - WEBEX_OAUTH_REDIRECT_URI=https://monitor.example.com/auth/callback
+      - DATABASE_PATH=/app/backend/data/compliance-monitor.db
+      - FRONTEND_DIST=/app/frontend/dist
+      - BOT_PAGE_ASSET_DIR=/app/bot-page
+      - CHROMIUM_PATH=/usr/bin/chromium
+      # CALENDAR_SYNC_ENABLED is left to the .env so a redeploy cannot clobber it.
+    volumes:
+      # SQLite database and rotated service-app tokens live here. Back it up.
+      - ./data:/app/backend/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    shm_size: "1gb"   # headless Chromium needs more /dev/shm than the 64MB default

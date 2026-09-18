@@ -1,0 +1,58 @@
+/* Webex Compliance Monitoring System — design tokens (DESIGN.md, hex is source of truth) */
+:root {
+  /* Surfaces & lines */
+  --bg: #0e0f12;
+  --s1: #16171b;
+  --s2: #1d1f24;
+  --s3: #282a31;
+  --line: rgba(255, 255, 255, 0.09);
+  --line2: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --tx1: #f3f4f6;
+  --tx2: #a7abb3;
+  --tx3: #71757d;
+
+  /* Status — semantic signal only, never decoration */
+  --green: #34c76a;
+  --green-solid: #1fa557;
+  --green-bg: rgba(52, 199, 106, 0.15);
+  --amber: #f2b032;
+  --amber-bg: rgba(242, 176, 50, 0.15);
+  --red: #ff5b52;
+  --red-bg: rgba(255, 91, 82, 0.15);
+  --blue: #4c9ff7;
+  --blue-bg: rgba(76, 159, 247, 0.14);
+  --violet: #b394f0;
+  --violet-bg: rgba(179, 148, 240, 0.15);
+
+  /* Typography */
+  --font-ui: 'Mulish', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Z-index scale (semantic) */
+  --z-base: 0;
+  --z-header: 20;
+  --z-settings-overlay: 40;
+  --z-settings-panel: 42;
+  --z-tooltip: 90;
+
+  /* Layout */
+  /* Desktop single-row header height; the ≤760px flex-wrap rule in
+     styles/responsive.css can grow the real header beyond this */
+  --header-height: 62px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+}

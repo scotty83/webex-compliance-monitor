@@ -1,0 +1,60 @@
+/* Webex Compliance Monitoring System — structural responsive rules.
+
+   The console is a desk tool: pixel target is 1440×940 desktop-first, so these
+   rules are about degrading gracefully at narrow widths — structural reflow
+   only (columns collapse, clusters wrap), never fluid type. */
+
+/* ── View container (overview) ────────────────────────────────────────────────
+   Base layout lives here (not inline) so the media query below can win. */
+.view-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+/* ── Chaperone content grid ───────────────────────────────────────────────────
+   Two columns at desk width: fluid left (attendees + timeline), fixed 340px
+   right rail (other meetings + listening activity). */
+.chaperone-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  align-items: start;
+}
+
+/* Right rail — sticky below the header (+16px breathing room) */
+.chaperone-side {
+  position: sticky;
+  top: calc(var(--header-height) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── Narrow widths (~tablet portrait and below) ──────────────────────────────*/
+@media (max-width: 760px) {
+  /* Chaperone: single column — right-rail panels stack below the left column */
+  .chaperone-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Sticky is a two-column affordance; release it when stacked */
+  .chaperone-side {
+    position: static;
+  }
+
+  /* Header: allow the brand / status cluster / controls to wrap instead of
+     clipping (Header uses minHeight + paddingInline inline, so wrapped rows
+     can grow the bar and pick up vertical breathing room here) */
+  .app-header {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+    padding-block: var(--space-2);
+  }
+
+  /* Overview: tighten page padding so cards keep usable width */
+  .view-container {
+    padding: var(--space-4) var(--space-4);
+  }
+}

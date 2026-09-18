@@ -1,0 +1,31 @@
+# Build context = the unzipped git archive on the NAS (already excludes
+# untracked files); this is belt-and-braces + keeps design docs out.
+node_modules
+**/node_modules
+**/dist
+dist-deploy
+.git
+.gitignore
+.env
+.env.*
+data
+*.db
+*.zip
+design-handoff
+graphify-out
+.claude
+.superpowers
+.impeccable
+.DS_Store
+DESIGN.md
+PRODUCT.md
+
+# Nested variants — dockerignore root-level patterns do NOT recurse, and
+# backend/.env exists on the authoring Mac: a local `docker build` would bake
+# secrets into the backend layer without these. Never bake secrets.
+**/.env
+**/.env.*
+**/data
+**/*.db
+**/graphify-out
+**/.DS_Store
